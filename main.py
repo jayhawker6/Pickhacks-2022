@@ -55,6 +55,7 @@ def interest_calc():
 def viewfinances():
     def plotmoney():
         mainchart = plt.pyplot
+        mainchart.figure(1, (11, 8.5), 350)
         mainchart.plot(df[money_choice])
         mainchart.plot(df[debt_choice])
         mainchart.plot(df['realValue'])
@@ -115,10 +116,10 @@ def viewfinances():
         break
 
     df = pd.read_csv(file, index_col='Time')
-    df['SMA'] = df['Money'].rolling(5).mean()
-    df['SMA2'] = df['Money2'].rolling(5).mean()
-    df['SMA3'] = df['Money3'].rolling(5).mean()
-    df['SMA4'] = df['Money4'].rolling(5).mean()
+    df['SMA'] = (df['Money'] + df['Debt']).rolling(20).mean()
+    df['SMA2'] = (df['Money2'] + df['Debt2']).rolling(20).mean()
+    df['SMA3'] = (df['Money3'] + df['Debt3']).rolling(20).mean()
+    df['SMA4'] = (df['Money4'] + df['Debt4']).rolling(20).mean()
     money = df[money_choice]
     debt = df[debt_choice]
     df['realValue'] = money + debt
