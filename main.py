@@ -19,6 +19,7 @@ def compoundinterest(pa, ir, c):
             total_interest = (accumulated + principle_amount) * ((interest_rate / 100) * time_periods)
             accumulated += total_interest
     except ValueError:
+        return 0
         pass
     return total_interest
 
