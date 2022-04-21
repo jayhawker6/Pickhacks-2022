@@ -9,6 +9,18 @@ class FatalSystemError(Exception):
         self.message = message
         super().__init__(self.message)
 
+def compoundinterest(pa, ir, c):
+    try:
+        accumulated = 0
+        principle_amount = int(pa)
+        interest_rate = int(ir)
+        time_periods = int(c)
+        for i in range(time_periods):
+            total_interest = (accumulated + principle_amount) * ((interest_rate / 100) * time_periods)
+            accumulated += total_interest
+    except ValueError:
+        pass
+    return total_interest
 
 def interest_calc():
     principle_amount = 0
@@ -37,17 +49,7 @@ def interest_calc():
             except ValueError:
                 pass
         elif event == "Calculate Compound per charge (after n cycles)":
-            try:
-                accumulated = 0
-                principle_amount = int(values["principle_amount"])
-                interest_rate = int(values["interest_rate"])
-                time_periods = int(values["cycles"])
-                for i in range(time_periods):
-                    total_interest = (accumulated + principle_amount) * ((interest_rate / 100) * time_periods)
-                    accumulated += total_interest
-            except ValueError:
-                pass
-
+            total_interest = compoundinterest(values["principle_amount"], values["interest_rate"], values["cycles"])
         window.close()
         window.refresh()
 
